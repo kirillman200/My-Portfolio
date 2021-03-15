@@ -9,6 +9,7 @@ module.exports = {
 	},
 	plugins: [
 		`gatsby-plugin-react-helmet`,
+		`gatsby-plugin-image`,
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
@@ -19,12 +20,15 @@ module.exports = {
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		'gatsby-plugin-postcss',
+		'gatsby-plugin-dark-mode',
+
 		{
 			resolve: `gatsby-source-graphql`,
 			options: {
 				typeName: `GraphCMS`,
 				fieldName: `cms`,
-				url: `https://api-ca-central-1.graphcms.com/v2/ckla8wt51jelz01yyezk7fnwz/master`
+				url: process.env.GATSBY_CMS_ACCESS,
+				downloadLocalImages: true
 			}
 		},
 

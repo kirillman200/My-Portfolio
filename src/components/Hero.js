@@ -1,59 +1,32 @@
-import { Link } from 'gatsby';
 import React from 'react';
-import Coding from '../images/coding.jpg';
-import { graphql, useStaticQuery } from 'gatsby';
-import styled from 'styled-components';
 import { Link as LinkS } from 'react-scroll';
-import Img from 'gatsby-image';
-import programmer from '../images/programmer.svg';
-import BackgroundImage from 'gatsby-background-image';
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 
-const Hero = ({ Title, SubTitle, ScrollTo }) => {
-	const data = useStaticQuery(
-		graphql`
-			query {
-				file(relativePath: { eq: "programmer.svg" }) {
-					childImageSharp {
-						fluid {
-							tracedSVG
-						}
-					}
-				}
-			}
-		`
-	);
-
-	// Set ImageData.
-	// const imageData = data.file.childImageSharp.fluid.tracedSVG;
-
+const Hero = ({ Title, SubTitle, ScrollTo, Image, ProjectImage }) => {
 	return (
-		// <BackgroundImage
-		// 	Tag='section'
-		// 	className='text-black w-screen hero-bg object-cover flex flex-col justify-center items-center '
-		// 	fluid={imageData}
-		// >
-
-		<section
-			id='hero'
-			className='text-black my-auto flex flex-col justify-center w-screen hero-bg object-cover  items-center'
-		>
-			<div className='hero-black-overlay flex  justify-between'>
-				<div className='mx-auto my-auto  w-full  text-center items-center '>
-					<h1 className=' lg:text-7xl md:text-5xl sm:text-5xl text-3xl '> {Title}</h1>
-					<h2 className='lg:text-5xl md:text-4xl sm:text-3xl text-2xl italic mt-5'>{SubTitle}</h2>
+		<section id='hero' className='px-10 md:py-32 py-32 pb-6 mx-auto'>
+			<div className='md:flex grid justify-around '>
+				<div className=' my-auto max-w-lg text-center '>
+					<h1 className=' lg:text-7xl md:text-5xl text-5xl'> {Title}</h1>
+					<h2 className='lg:text-5xl md:text-4xl text-3xl italic mt-5'>{SubTitle}</h2>
 				</div>
-				<div>
-					<img src={programmer} alt='Guy with computers' />
+				<div className='max-w-lg '>
+					{Image ? (
+						<GatsbyImage image={Image} alt='Guy with computers' />
+					) : (
+						<div>
+							<img className='rounded-lg' src={ProjectImage} />
+						</div>
+					)}
 				</div>
 			</div>
 			<div className='mt-10 flex justify-center justify-items-center '>
 				<LinkS to={ScrollTo} smooth={true} duration={500} spy={true} exact='true' offset={-80}>
-					{/* Add smothscroll! */}
 					<svg
-						className='cursor-pointer hover:text-red transition-all duration-200 ease-in animate-bounce items-center w-8 h-8'
+						className='cursor-pointer hover:text-white-darker transition-all duration-200 ease-in animate-bounce items-center w-8 h-8'
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
-						viewBox='0 0 24 24'
+						viewBox='2 2 20 20'
 						stroke='currentColor'
 					>
 						<path
@@ -66,15 +39,7 @@ const Hero = ({ Title, SubTitle, ScrollTo }) => {
 				</LinkS>
 			</div>
 		</section>
-		// {/* </BackgroundImage> */}
-
-		// <BackgroundImage Tag='section' className={className} fluid={imageData} backgroundColor={`#040e18`}>
-		// 	<h2>gatsby-background-image</h2>
-		// </BackgroundImage>
 	);
 };
-export const StyledBG = styled(BackgroundImage)`
 
-height: 100vh; 
-`;
 export default Hero;

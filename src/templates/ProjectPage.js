@@ -1,25 +1,29 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Img from 'gatsby-image';
-
+import Layout from '../components/layout';
+import SEO from '../components/seo';
+import Hero from '../components/Hero';
 const ProjectPage = ({ data: { cms: { project } } }) => (
 	<React.Fragment>
-		<h1> {project.title} </h1>
-		<p> {project.description.text} </p>
-		{/* <img src={project.frameworkImage} alt='frame' /> */}
-		{/* <img src={image} alt='hello' /> */}
-		{
-			(project.frameworkImage.url = !null ? (
+		<Layout>
+			{console.log(
+				'🚀 ~ file: ProjectPage.js ~ line 12 ~ project.frameworkImage.url',
+				project.frameworkImage.url
+			)}
+			<SEO title={project.title} />
+			<Hero Title={project.title} SubTitle='' ScrollTo={project.slug} ProjectImage={project.image.url} />
+			<div id={project.slug}>
+				<p> {project.description.text} </p>
+				{/* <img src={project.frameworkImage} alt='frame' /> */}
+				{/* <img src={image} alt='hello' /> */}
 				<div>
 					{' '}
-					<img src={project.frameworkImage.url} />{' '}
+					<img src={project.frameworkImage.url} alt='' />{' '}
 				</div>
-			) : (
-				<div>No Image</div>
-			))
-		}
 
-		{/* <img src={project.frameworkImage.url} /> */}
+				{/* <img src={project.frameworkImage.url} /> */}
+			</div>
+		</Layout>
 	</React.Fragment>
 );
 
@@ -40,6 +44,7 @@ export const pageQuery = graphql`
 				}
 				image {
 					fileName
+					url
 				}
 			}
 		}

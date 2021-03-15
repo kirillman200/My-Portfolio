@@ -13,59 +13,45 @@
 	background: #ffcdcd;
 }
 
-*:focus {
-	outline: none;
-}
+
 @layer base {
 	body {
-		@apply font-Titillium bg-white;
+		@apply font-Titillium bg-white overflow-x-hidden dark:bg-darkmode dark:text-white;
 	}
 
 	.links-item {
-		@apply h-20 p-6 cursor-pointer hover:text-red-lighter transition duration-300 ease-in-out;
+		@apply h-20 p-6 cursor-pointer hover:text-white-darker transition duration-300 ease-in-out;
 	}
 	.section-title {
 		@apply py-4 text-center lg:text-4xl pb-8 md:text-3xl sm:text-2xl text-xl;
 	}
 	.social-links-footer {
-		@apply px-3 py-0 text-xl hover:text-red-lighter transition duration-300 ease-in-out;
+		@apply px-3 py-0 text-xl hover:text-white-darker transition duration-300 ease-in-out;
 	}
 	.form-element-wrap {
-		@apply relative my-8 border-b-2 focus-within:border-red;
+		@apply relative my-8 border-b-2 focus-within:border-white-darker;
 	}
 	.form-input {
-		@apply block w-full text-blue appearance-none focus:outline-none bg-transparent transition-all duration-300 ease-in-out;
+		@apply block w-full dark:text-white-darker text-blue appearance-none focus:outline-none bg-transparent transition-all duration-300 ease-in-out;
 	}
 	.form-label {
-		@apply absolute top-0 -z-1 origin-0 text-blue transition-all duration-300 ease-in-out;
+		@apply absolute top-0 -z-1 origin-0 dark:text-white-darker text-blue transition-all duration-300 ease-in-out;
 	}
 	.form-input:focus-within ~ label {
-		@apply transform scale-75 -translate-y-6 text-blue transition-all duration-300 ease-in-out;
+		@apply transform scale-75 -translate-y-6 dark:text-white-darker text-blue transition-all duration-300 ease-in-out;
 	}
 	.form-input:focus-within ~ label,
 	.form-input:not(:placeholder-shown) ~ label {
 		@apply transform scale-75 -translate-y-6 transition-all duration-300 ease-in-out;
 	}
+	.common-btn{
+		@apply px-8 py-2 bg-white-darker text-darkmode-darker hover:bg-darkmode-darker hover:text-white-darker transition-all duration-300 rounded-lg shadow-lg;
+	}
 
-	/* .active {
-		@apply border-b-4 border-red-light rounded-2xl;
-	} */
+	
 }
 
-.hero-bg {
-	height: 60vh;
-	width: 100%;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-/* .hero-black-overlay {
-	display: -webkit-flex;
-	display: flex;
-	background: linear-gradient(180deg, rgba(21, 26, 81, 0.3) 0%, rgba(25, 31, 97, 1) 100%);
-	height: 100%;
-	width: 100%;
-} */
+
 
 .pre-loader-done {
 	transition: all 0.5s ease-in-out;
@@ -74,3 +60,44 @@
 	overflow: hidden !important;
 	/* display: none !important; */
 }
+
+.react-switch-checkbox {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+  }
+  
+  .react-switch-label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	width: 60px;
+	height: 30px;
+	background: grey;
+	border-radius: 20px;
+	position: relative;
+	transition: all .2s;
+  }
+  
+  .react-switch-label .react-switch-button {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 30px;
+	height: 25px;
+	border-radius: 25px;
+	transition: 0.2s;
+	background: #fff;
+	box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+  }
+  
+  .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+	left: calc(100% - 2px);
+	transform: translateX(-100%);
+  }
+  
+  .react-switch-label:active .react-switch-button {
+	width: 60px;
+  }

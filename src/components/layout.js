@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
 
 
   return (
-    <>
+    <div className="antialiased min-h-screen dark:bg-darkmode dark:text-white ">
       <Header toggle={toggle} isOpen={isOpen} siteTitle={data.site.siteMetadata?.title || `Title`} />
       <Dropdown isOpen={isOpen} toggle={toggle} />
       <div>
@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
       </div>
 
       <Footer />
-    </>
+    </div>
   )
 }
 
