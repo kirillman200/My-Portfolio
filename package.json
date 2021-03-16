@@ -9,6 +9,7 @@
     "emailjs-com": "^2.6.4",
     "gatsby": "^3.0.3",
     "gatsby-background-image": "^1.4.1",
+    "gatsby-plugin-google-tagmanager": "^3.0.0",
     "gatsby-plugin-image": "^1.0.0",
     "gatsby-plugin-manifest": "^3.0.0",
     "gatsby-plugin-offline": "^4.0.0",

@@ -4,9 +4,17 @@ require('dotenv').config({
 module.exports = {
 	siteMetadata: {
 		title: `Portfolio - Kiril Mankovskyi`,
-		description: `Hi, This is about me`
+		description: `Hi, This is about me`,
+		author: ``
 	},
 	plugins: [
+		{
+			resolve: 'gatsby-plugin-google-tagmanager',
+			options: {
+				id: 'GTM-K942XKW',
+				includeInDevelopment: false
+			}
+		},
 		`gatsby-plugin-react-helmet`,
 		`gatsby-plugin-image`,
 		{
@@ -39,7 +47,7 @@ module.exports = {
 				background_color: `#fff`,
 				theme_color: `#FFCDCD`,
 				display: `minimal-ui`,
-				icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
+				icon: `src/images/favicon.png` // This path is relative to the root of the site.
 			}
 		}
 		// this (optional) plugin enables Progressive Web App + Offline functionality

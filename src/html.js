@@ -19,7 +19,6 @@ export default function HTML(props){
 					id='___loader'
 					style={{
 						alignItems: 'center',
-						backgroundColor: '#fff',
 						display: 'flex',
 						justifyContent: 'center',
 						position: 'fixed',
@@ -32,7 +31,7 @@ export default function HTML(props){
 						overflow: 'hidden',
 						zIndex: 100
 					}}
-					className='translate-x-full bg-white overflow-x-hidden overflow-y-hidden'
+					className='translate-x-full bg-white dark:bg-darkmode overflow-x-hidden overflow-y-hidden'
 				>
 					<img src={LoaderSVG} className='mx-auto my-auto' alt='loading spinner' width='150' height='150' />
 				</div>

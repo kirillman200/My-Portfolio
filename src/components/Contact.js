@@ -1,6 +1,7 @@
 import React from 'react';
 import emailjs from 'emailjs-com';
 import { useForm } from 'react-hook-form';
+import { navigate } from 'gatsby-link';
 
 const service = process.env.GATSBY_SERVICE_ID;
 const template = process.env.GATSBY_TEMPLATE_ID;
@@ -10,11 +11,14 @@ const Contact = () => {
 	const { register, handleSubmit, errors } = useForm();
 	function sendEmail(e){
 		e.preventDefault();
+
 		emailjs.sendForm(service, template, e.target, user).then(
 			(response) => {
 				console.log('SUCCESS!', response.status, response.text);
+				navigate('success');
 			},
 			(error) => {
+				alert('There was an error during submission');
 				console.log('FAILED...', error);
 			}
 		);

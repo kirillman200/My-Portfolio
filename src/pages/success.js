@@ -5,10 +5,10 @@ import SEO from '../components/seo';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import { getImage, GatsbyImage } from 'gatsby-plugin-image';
 
-const NotFoundPage = () => {
+const Success = () => {
 	const data = useStaticQuery(graphql`
 		query {
-			file(relativePath: { eq: "404.png" }) {
+			file(relativePath: { eq: "Submission.png" }) {
 				childImageSharp {
 					gatsbyImageData(formats: [WEBP, AVIF], placeholder: TRACED_SVG)
 				}
@@ -18,11 +18,13 @@ const NotFoundPage = () => {
 	const image = getImage(data.file);
 	return (
 		<Layout>
-			<SEO title='404: Not found' />
+			<SEO title='Submission' />
 			<div className='mx-auto h-screen my-auto flex-col flex  justify-center items-center'>
+				<h1 className='section-title'>Thank you for submission </h1>
+
 				<GatsbyImage image={image} alt='Resume' />
 				<div className='mt-40  flex justify-center'>
-					<button className='common-btn  md:py-10 md:px-32 md:text-4xl'>
+					<button className='common-btn md:py-10 md:px-32 md:text-4xl'>
 						{' '}
 						<Link to='/'> Back Home </Link>{' '}
 					</button>
@@ -32,4 +34,4 @@ const NotFoundPage = () => {
 	);
 };
 
-export default NotFoundPage;
+export default Success;
