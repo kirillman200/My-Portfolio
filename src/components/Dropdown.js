@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import ThemeToggle from './ThemeToggle';
+// import ThemeToggle from './ThemeToggle';
 
 const Dropdown = ({ isOpen, toggle }) => {
 	return (
@@ -31,9 +31,9 @@ const Dropdown = ({ isOpen, toggle }) => {
 				{' '}
 				Contact{' '}
 			</Link>
-			<div className='block links-item mx-auto my-auto'>
+			{/* <div className='block links-item mx-auto my-auto'>
 				<ThemeToggle />
-			</div>
+			</div> */}
 		</nav>
 	);
 };

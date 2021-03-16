@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { animateScroll as scroll, Link as LinkS } from 'react-scroll';
-import ThemeToggle from './ThemeToggle';
+// import ThemeToggle from './ThemeToggle';
 import { Link } from 'gatsby';
 const Header = ({ siteTitle, toggle, isOpen }) => {
 	const toggleHome = () => {
@@ -25,7 +25,7 @@ const Header = ({ siteTitle, toggle, isOpen }) => {
 				<div className='px-4 cursor-pointer md:hidden' onClick={toggle}>
 					{!isOpen ? (
 						<svg
-							className='cursor-pointer hover:text-red transition duration-300 ease-in-out items-center w-8 h-8'
+							className='cursor-pointer hover:text-white-darker transition duration-300 ease-in-out items-center w-8 h-8'
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
 							viewBox='0 0 24 24'
@@ -40,7 +40,7 @@ const Header = ({ siteTitle, toggle, isOpen }) => {
 						</svg>
 					) : (
 						<svg
-							className='cursor-pointer hover:text-red transition duration-300 ease-in-out items-center w-8 h-8'
+							className='cursor-pointer hover:text-white-darker transition duration-300 ease-in-out items-center w-8 h-8'
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
 							viewBox='0 0 24 24'
@@ -57,9 +57,9 @@ const Header = ({ siteTitle, toggle, isOpen }) => {
 				</div>
 
 				<div className='pr-8 md:flex justify-between hidden'>
-					<div className='mx-auto my-auto'>
+					{/* <div className='mx-auto my-auto'>
 						<ThemeToggle />
-					</div>
+					</div> */}
 					<Link to='/' onClick={toggleHome} className='links-item act'>
 						{' '}
 						Home{' '}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link as LinkS } from 'react-scroll';
-import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
-const Hero = ({ Title, SubTitle, ScrollTo, Image, ProjectImage }) => {
+const Hero = ({ Title, SubTitle, ScrollTo, Image, ProjectImage, FallbackAltForImg }) => {
 	return (
 		<section id='hero' className='px-10 md:py-32 py-32 pb-6 mx-auto'>
 			<div className='md:flex grid justify-around '>
@@ -15,7 +15,7 @@ const Hero = ({ Title, SubTitle, ScrollTo, Image, ProjectImage }) => {
 						<GatsbyImage image={Image} alt='Guy with computers' />
 					) : (
 						<div>
-							<img className='rounded-lg' src={ProjectImage} />
+							<img className='rounded-lg' src={ProjectImage} alt={FallbackAltForImg} />
 						</div>
 					)}
 				</div>

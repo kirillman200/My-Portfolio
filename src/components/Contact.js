@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import emailjs from 'emailjs-com';
 import { useForm } from 'react-hook-form';
 

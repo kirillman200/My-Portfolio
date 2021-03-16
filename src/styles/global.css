@@ -12,7 +12,10 @@
 ::-webkit-scrollbar-thumb {
 	background: #ffcdcd;
 }
-
+::selection {
+	color: #232130;
+	background: #ffcdcd;
+}
 
 @layer base {
 	body {
@@ -23,7 +26,7 @@
 		@apply h-20 p-6 cursor-pointer hover:text-white-darker transition duration-300 ease-in-out;
 	}
 	.section-title {
-		@apply py-4 text-center lg:text-4xl pb-8 md:text-3xl sm:text-2xl text-xl;
+		@apply py-4 text-center lg:text-5xl pb-8 md:text-4xl  text-3xl;
 	}
 	.social-links-footer {
 		@apply px-3 py-0 text-xl hover:text-white-darker transition duration-300 ease-in-out;

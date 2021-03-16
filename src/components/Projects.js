@@ -1,11 +1,11 @@
 import React from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
-import { FiLink2, FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiExternalLink } from 'react-icons/fi';
 
 const pageQuery = graphql`
 	{
 		cms {
-			projects {
+			projects(first: 2) {
 				title
 				slug
 				description {
@@ -90,9 +90,10 @@ const Projects = () => {
 					</div>
 				))}
 			</div>
-			<div className='flex mt-3 justify-center'>
+			{/* IN DEVELOPMENT */}
+			{/* <div className='flex mt-3 justify-center'>
 				<button className='common-btn'> Read More </button>
-			</div>
+			</div> */}
 		</section>
 	);
 };

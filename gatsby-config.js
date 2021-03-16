@@ -4,8 +4,7 @@ require('dotenv').config({
 module.exports = {
 	siteMetadata: {
 		title: `Portfolio - Kiril Mankovskyi`,
-		description: `Hi, This is about me`,
-		author: `@kirilmankovskyi`
+		description: `Hi, This is about me`
 	},
 	plugins: [
 		`gatsby-plugin-react-helmet`,
@@ -20,7 +19,6 @@ module.exports = {
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		'gatsby-plugin-postcss',
-		'gatsby-plugin-dark-mode',
 
 		{
 			resolve: `gatsby-source-graphql`,
@@ -38,8 +36,8 @@ module.exports = {
 				name: `My-Portfolio`,
 				short_name: `portfolio`,
 				start_url: `/`,
-				background_color: `#000`,
-				theme_color: `#96031A`,
+				background_color: `#fff`,
+				theme_color: `#FFCDCD`,
 				display: `minimal-ui`,
 				icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
 			}
