@@ -2,7 +2,7 @@ import React from 'react';
 import emailjs from 'emailjs-com';
 import { useForm } from 'react-hook-form';
 import { navigate } from 'gatsby-link';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 
 const service = process.env.GATSBY_SERVICE_ID;
 const template = process.env.GATSBY_TEMPLATE_ID;
@@ -10,13 +10,13 @@ const user = process.env.GATSBY_USER_ID;
 
 const Contact = () => {
 	const { register, handleSubmit, errors } = useForm();
-	const recaptchaRef = React.createRef();
+	// const recaptchaRef = React.createRef();
 	function sendEmail(e){
 		e.preventDefault();
-		const params = {
-			'g-recaptcha-response': e
-		};
-		emailjs.sendForm(service, template, params, user).then(
+		// const params = {
+		// 	'g-recaptcha-response': e
+		// };
+		emailjs.sendForm(service, template, e.target, user).then(
 			(response) => {
 				console.log('SUCCESS!', response.status, response.text);
 				navigate('success');
@@ -30,7 +30,7 @@ const Contact = () => {
 	}
 
 	return (
-		<div id='contact' className='py-32'>
+		<div id='contact' className='py-20 md:py-32'>
 			<div className=''>
 				<form onSubmit={sendEmail} className='max-w-lg  mx-auto rounded-lg shadow-xl overflow-hidden p-6'>
 					<h2 className='section-title'> Contact Me </h2>
@@ -93,7 +93,7 @@ const Contact = () => {
 							Submit{' '}
 						</button>
 					</div>
-					<ReCAPTCHA sitekey={process.env.GATSBY_CAPTCHA_SITE_KEY} onChange={sendEmail} />
+					{/* <ReCAPTCHA sitekey={process.env.GATSBY_CAPTCHA_SITE_KEY} onChange={sendEmail} /> */}
 				</form>
 			</div>
 		</div>

@@ -60,7 +60,7 @@ const Header = ({ siteTitle, toggle, isOpen }) => {
 					{/* <div className='mx-auto my-auto'>
 						<ThemeToggle />
 					</div> */}
-					<Link to='/' onClick={toggleHome} className='links-item act'>
+					<Link to='/' onClick={toggleHome} className='links-item'>
 						{' '}
 						Home{' '}
 					</Link>
