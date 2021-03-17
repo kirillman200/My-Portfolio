@@ -43,7 +43,7 @@ const pageQuery = graphql`
 const Projects = () => {
 	const { cms: { projects } } = useStaticQuery(pageQuery);
 	return (
-		<section id='projects' className=' m-0 py-20 md:py-32 w-screen content-center'>
+		<section id='projects' className=' m-0 py-20 md:py-32 w-screen content-center max-w-7xl mx-auto'>
 			<h2 className='section-title'> My Projects </h2>
 			<div className='pt-12 pb-3 container grid grid-cols-1 justify-center mx-auto items-center md:flex md:justify-evenly'>
 				{projects.map(({ slug, ...project }) => (

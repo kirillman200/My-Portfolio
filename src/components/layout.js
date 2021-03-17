@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
 
 
   return (
-    <div className="antialiased min-h-screen ">
+    <div className="antialiased min-h-screen">
       <Header toggle={toggle} isOpen={isOpen} siteTitle={data.site.siteMetadata?.title || `Title`} />
       <Dropdown isOpen={isOpen} toggle={toggle} />
       <div>

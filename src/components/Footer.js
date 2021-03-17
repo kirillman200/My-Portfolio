@@ -3,10 +3,10 @@ import { FaLinkedinIn } from 'react-icons/fa';
 import { FiGithub, FiMail } from 'react-icons/fi';
 const Footer = () => {
 	return (
-		<footer className=' py-3 w-screen dark:bg-darkmode-darker border-t border-white-darker '>
-			<div className='flex flex-col justify-items-center items-center m-0'>
-				<section className='w-4/5'>
-					<section className='flex justify-between flex-col md:flex-row items-center my-2 md:my-4'>
+		<footer className='shadow-sm py-3 w-screen dark:bg-darkmode-darker border-t border-white-darker '>
+			<section className='flex flex-col  items-center m-0 max-w-7xl mx-auto'>
+				<div className='w-full px-6'>
+					<div className='flex justify-between flex-col md:flex-row my-2 md:my-4'>
 						<div className='md:justify-center mb-6 md:mb-0 '>
 							Kiril Mankovskyi &copy; {new Date().getFullYear()} All rights reserved.
 						</div>
@@ -39,9 +39,9 @@ const Footer = () => {
 								<FiMail />
 							</a>
 						</div>
-					</section>
-				</section>
-			</div>
+					</div>
+				</div>
+			</section>
 		</footer>
 	);
 };

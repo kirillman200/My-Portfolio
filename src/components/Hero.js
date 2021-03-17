@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 
 const Hero = ({ Title, SubTitle, ScrollTo, Image, ProjectImage, FallbackAltForImg }) => {
 	return (
-		<section id='hero' className='px-10 md:py-32 py-32 pb-6 mx-auto'>
+		<section id='hero' className='px-10 md:py-32 py-32 pb-6 mx-auto max-w-7xl'>
 			<div className='md:flex grid justify-around '>
 				<div className=' my-auto max-w-lg text-center '>
 					<h1 className=' lg:text-7xl md:text-5xl text-5xl'> {Title}</h1>

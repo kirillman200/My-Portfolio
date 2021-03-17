@@ -24,10 +24,9 @@ const Success = () => {
 
 				<GatsbyImage image={image} alt='Resume' />
 				<div className='mt-40  flex justify-center'>
-					<button className='common-btn md:py-10 md:px-32 md:text-4xl'>
-						{' '}
-						<Link to='/'> Back Home </Link>{' '}
-					</button>
+					<Link to='/'>
+						<button className='common-btn md:py-10 md:px-32 md:text-4xl'> Back Home</button>
+					</Link>{' '}
 				</div>
 			</div>
 		</Layout>

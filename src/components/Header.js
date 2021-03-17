@@ -9,18 +9,18 @@ const Header = ({ siteTitle, toggle, isOpen }) => {
 	};
 
 	return (
-		<header className='fixed shadow-sm text-lg w-screen h-20 z-50 bg-da '>
+		<header className='fixed shadow-sm bg-white dark:bg-darkmode-darker  text-lg w-screen h-20 z-50  '>
 			<NavBar
-				className='flex p-0 px-6 bg-white dark:bg-darkmode-darker justify-between
+				className='flex p-0 px-6 max-w-7xl mx-auto  justify-between
 				 h-20 items-center font-bold relative transition duration-700 '
 				role='navigation'
 			>
 				<div className='site-name-wrap'>
-					<h1 className=' pl-8'>
+					<h2 className=''>
 						<Link onClick={toggleHome} to='/' className='cursor-pointer'>
 							Kiril Mankovskyi
 						</Link>
-					</h1>
+					</h2>
 				</div>
 				<div className='px-4 cursor-pointer md:hidden' onClick={toggle}>
 					{!isOpen ? (

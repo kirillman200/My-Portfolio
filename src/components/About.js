@@ -16,7 +16,7 @@ const About = () => {
 	const image = getImage(data.file);
 	return (
 		<div id='about' className=' w-screen py-20 md:py-32 '>
-			<div className=' mx-auto '>
+			<div className=' mx-auto max-w-7xl'>
 				<div className='p-10  grid md:flex justify-around '>
 					<div className='max-w-lg'>
 						<GatsbyImage image={image} alt='Resume' />

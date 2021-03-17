@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import { animateScroll as scroll, Link as LinkS } from 'react-scroll';
+import { Link as LinkS } from 'react-scroll';
 
 // import ThemeToggle from './ThemeToggle';
 

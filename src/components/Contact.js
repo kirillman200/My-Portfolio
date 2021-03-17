@@ -30,10 +30,19 @@ const Contact = () => {
 	}
 
 	return (
-		<div id='contact' className='py-20 md:py-32'>
+		<div id='contact' className='py-20 md:py-32 max-w-7xl mx-auto'>
 			<div className=''>
 				<form onSubmit={sendEmail} className='max-w-lg  mx-auto rounded-lg shadow-xl overflow-hidden p-6'>
-					<h2 className='section-title'> Contact Me </h2>
+					<h2 className='section-title pb-4'> Contact Me </h2>
+					<p className='text-center'>
+						{' '}
+						You can email to{' '}
+						<a className='text-white-darker' href='mailto:kmankovskyi@gmail.com'>
+							{' '}
+							kmankovskyi@gmail.com
+						</a>{' '}
+						or using form below{' '}
+					</p>
 					<div className='form-element-wrap'>
 						{' '}
 						<input
@@ -41,6 +50,7 @@ const Contact = () => {
 							className='form-input'
 							placeholder=' '
 							name='name'
+							required
 							ref={register({ required: true })}
 						/>
 						<label className='form-label' htmlFor='name'>
@@ -55,6 +65,7 @@ const Contact = () => {
 							className='form-input'
 							placeholder=' '
 							name='email'
+							required
 							ref={register({ required: true })}
 						/>
 						<label className='form-label' htmlFor='email'>
@@ -79,6 +90,7 @@ const Contact = () => {
 							rows='3'
 							placeholder=' '
 							name='message'
+							required
 							ref={register({ required: true })}
 						/>
 						<label className='form-label' htmlFor='message'>
