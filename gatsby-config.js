@@ -4,8 +4,10 @@ require('dotenv').config({
 module.exports = {
 	siteMetadata: {
 		title: `Portfolio - Kiril Mankovskyi`,
-		description: `Hi, This is about me`,
-		author: ``
+		description: `This I My Porfolio, Please Check It Out!`,
+		author: `Kiril Mankovskyi`,
+		url: 'https://kmankovskyi.com/',
+		image: './src/images/ResumeDark.png'
 	},
 	plugins: [
 		{

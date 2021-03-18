@@ -8,7 +8,7 @@ import { FiGithub, FiExternalLink } from 'react-icons/fi';
 const ProjectPage = ({ data: { cms: { project } } }) => (
 	<React.Fragment>
 		<Layout>
-			<SEO title={project.title} />
+			<SEO title={project.title} description={project.shortDescription} image={project.image.url} />
 			<Hero
 				Title={project.title}
 				SubTitle=''
@@ -60,6 +60,7 @@ export const pageQuery = graphql`
 			project(where: { id: $id }) {
 				title
 				slug
+				shortDescription
 				description {
 					markdown
 				}
