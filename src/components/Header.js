@@ -16,11 +16,11 @@ const Header = ({ siteTitle, toggle, isOpen }) => {
 				role='navigation'
 			>
 				<div className='site-name-wrap'>
-					<h2 className=''>
+					<div className=''>
 						<Link onClick={toggleHome} to='/' className='cursor-pointer'>
 							Kiril Mankovskyi
 						</Link>
-					</h2>
+					</div>
 				</div>
 				<div className='px-4 cursor-pointer md:hidden' onClick={toggle}>
 					{!isOpen ? (

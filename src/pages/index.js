@@ -15,7 +15,7 @@ const IndexPage = () => {
 		query {
 			file(relativePath: { eq: "Programmer.png" }) {
 				childImageSharp {
-					gatsbyImageData(formats: [WEBP, AVIF], placeholder: TRACED_SVG)
+					gatsbyImageData(formats: [WEBP, PNG, AVIF], placeholder: TRACED_SVG)
 				}
 			}
 		}
@@ -24,7 +24,7 @@ const IndexPage = () => {
 
 	return (
 		<Layout>
-			<SEO title=' Portfolio - Home ' image={`https://kmankovskyi.com${image.images.fallback.src}`} />
+			<SEO title=' Portfolio - Home ' image={image} pathname='/' />
 			<Hero Title='Kiril Mankovskyi' SubTitle='Developer' ScrollTo='about' Image={image} />
 			<About />
 			<Projects />

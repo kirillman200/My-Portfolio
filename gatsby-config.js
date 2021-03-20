@@ -6,7 +6,8 @@ module.exports = {
 		title: `Portfolio - Kiril Mankovskyi`,
 		description: `This I My Porfolio, Please Check It Out!`,
 		author: `Kiril Mankovskyi`,
-		url: 'https://kmankovskyi.com/',
+		url: 'https://kmankovskyi.com',
+		siteUrl: `https://kmankovskyi.com`,
 		image: './src/images/ResumeDark.png'
 	},
 	plugins: [
@@ -26,6 +27,7 @@ module.exports = {
 				path: `${__dirname}/src/images`
 			}
 		},
+		`gatsby-plugin-sitemap`,
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		'gatsby-plugin-postcss',

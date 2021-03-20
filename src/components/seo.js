@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title, image, url, keywords }) {
+function SEO({ description, lang, meta, title, image: metaImage, url, keywords, pathname }) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -20,7 +20,6 @@ function SEO({ description, lang, meta, title, image, url, keywords }) {
             description
             author
             url 
-            image
           }
         }
       }
@@ -29,9 +28,16 @@ function SEO({ description, lang, meta, title, image, url, keywords }) {
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
-  const metaImage = image
+  // const metaImage = image
+
+  const image =
+    metaImage
+      ? `${site.siteMetadata.url}${metaImage.images.fallback.src}`
+      : null
+
   const metaUrl = site.siteMetadata.url
   const metaKeywords = keywords || ["Kiril Mankovskyi", "Portfolio", "Web Developer", "Developer"]
+  const canonical = pathname ? `${site.siteMetadata.url}${pathname}` : null
 
   return (
     <Helmet
@@ -39,27 +45,29 @@ function SEO({ description, lang, meta, title, image, url, keywords }) {
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      link={
+        canonical
+          ? [
+              {
+                rel: "canonical",
+                href: canonical,
+              },
+            ]
+          : []
+      }
       meta={[
         {
           name: `description`,
           content: metaDescription,
         },
         {
+          name: "keywords",
+          content: metaKeywords.join(", "),
+        },
+        {
           property: `og:title`,
           content: title,
-        },
-        {
-          property: `og:type`,
-          content: `website`
-        },
-        {
-          property: `og:image`,
-          content: metaImage
-        },
-        {
-          property: `og:url`,
-          content: metaUrl
         },
         {
           property: `og:description`,
@@ -70,12 +78,8 @@ function SEO({ description, lang, meta, title, image, url, keywords }) {
           content: `website`,
         },
         {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
           name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
+          content: site.siteMetadata.author,
         },
         {
           name: `twitter:title`,
@@ -85,12 +89,35 @@ function SEO({ description, lang, meta, title, image, url, keywords }) {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(metaKeywords && metaKeywords.length > 0 ? {
-        name:`keywords`,
-        content: metaKeywords.join(`, `)
-      } : []
-      )
-    }
+      ]
+        .concat(
+          metaImage
+            ? [
+                {
+                  property: "og:image",
+                  content: image,
+                },
+                {
+                  property: "og:image:width",
+                  content: metaImage.width,
+                },
+                {
+                  property: "og:image:height",
+                  content: metaImage.height,
+                },
+                {
+                  name: "twitter:card",
+                  content: "summary_large_image",
+                },
+              ]
+            : [
+                {
+                  name: "twitter:card",
+                  content: "summary",
+                },
+              ]
+        )
+        .concat(meta)}
     />
   )
 }
@@ -106,6 +133,12 @@ SEO.propTypes = {
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
+  image: PropTypes.shape({
+    images: PropTypes.object.isRequired,
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+  }),
+  pathname: PropTypes.string,
 }
 
 export default SEO
