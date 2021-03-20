@@ -8,7 +8,12 @@ import { FiGithub, FiExternalLink } from 'react-icons/fi';
 const ProjectPage = ({ data: { cms: { project } } }) => (
 	<React.Fragment>
 		<Layout>
-			<SEO title={project.title} description={project.shortDescription} image={project.image.url} />
+			<SEO
+				title={project.title}
+				description={project.shortDescription}
+				ImageDimensions={project.image}
+				image={project.image.url}
+			/>
 			<Hero
 				Title={project.title}
 				SubTitle=''
@@ -77,6 +82,8 @@ export const pageQuery = graphql`
 				image {
 					altName
 					fileName
+					width
+					height
 					url(
 						transformation: {
 							document: { output: { format: webp } }

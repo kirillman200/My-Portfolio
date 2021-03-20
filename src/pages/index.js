@@ -24,7 +24,12 @@ const IndexPage = () => {
 
 	return (
 		<Layout>
-			<SEO title=' Portfolio - Home ' image={image} pathname='/' />
+			<SEO
+				title=' Portfolio - Home '
+				ImageDimensions={image}
+				image={`https://kmankovskyi.com${image.images.fallback.src}`}
+				pathname='/'
+			/>
 			<Hero Title='Kiril Mankovskyi' SubTitle='Developer' ScrollTo='about' Image={image} />
 			<About />
 			<Projects />

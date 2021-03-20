@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title, image: metaImage, url, keywords, pathname }) {
+function SEO({ description, lang, meta, title, ImageDimensions: metaDimensions,  image: metaImage, url, keywords, pathname }) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -31,10 +31,9 @@ function SEO({ description, lang, meta, title, image: metaImage, url, keywords, 
   // const metaImage = image
 
   const image =
-    metaImage
-      ? `${site.siteMetadata.url}${metaImage.images.fallback.src}`
+    metaImage && metaImage.src
+      ? `${site.siteMetadata.url}${metaImage.src}`
       : null
-
   const metaUrl = site.siteMetadata.url
   const metaKeywords = keywords || ["Kiril Mankovskyi", "Portfolio", "Web Developer", "Developer"]
   const canonical = pathname ? `${site.siteMetadata.url}${pathname}` : null
@@ -95,15 +94,15 @@ function SEO({ description, lang, meta, title, image: metaImage, url, keywords, 
             ? [
                 {
                   property: "og:image",
-                  content: image,
+                  content: metaImage,
                 },
                 {
                   property: "og:image:width",
-                  content: metaImage.width,
+                  content: metaDimensions.width,
                 },
                 {
                   property: "og:image:height",
-                  content: metaImage.height,
+                  content: metaDimensions.height,
                 },
                 {
                   name: "twitter:card",
@@ -133,11 +132,7 @@ SEO.propTypes = {
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
-  image: PropTypes.shape({
-    images: PropTypes.object.isRequired,
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-  }),
+  
   pathname: PropTypes.string,
 }
 
