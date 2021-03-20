@@ -4,7 +4,7 @@ require('dotenv').config({
 module.exports = {
 	siteMetadata: {
 		title: `Portfolio - Kiril Mankovskyi`,
-		description: `This I My Porfolio, Please Check It Out!`,
+		description: `This Is My Porfolio, Please Check It Out!. I am proficient in various platforms and languages. Experienced with the latest cutting-edge development tools and procedures. Able to effectively self-manage during independent projects, as well as collaborate as part of a productive team. `,
 		author: `Kiril Mankovskyi`,
 		url: 'https://kmankovskyi.com',
 		siteUrl: `https://kmankovskyi.com`,
