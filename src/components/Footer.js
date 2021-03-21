@@ -6,7 +6,7 @@ const Footer = () => {
 		<footer className='shadow-sm py-3 w-screen dark:bg-darkmode-darker border-t border-white-darker '>
 			<section className='flex flex-col  items-center m-0 max-w-7xl mx-auto'>
 				<div className='w-full px-6'>
-					<div className='flex justify-between flex-col md:flex-row my-2 md:my-4'>
+					<div className='flex justify-between items-center flex-col md:flex-row my-2 md:my-4'>
 						<div className='md:justify-center mb-6 md:mb-0 '>
 							Kiril Mankovskyi &copy; {new Date().getFullYear()} All rights reserved.
 						</div>

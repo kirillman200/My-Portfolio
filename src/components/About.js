@@ -27,9 +27,9 @@ const About = () => {
 						</div>
 						<div className='max-w-xl'>
 							<p className='text-center'>
-								Proficient in various platforms and languages. Experienced with the latest cutting-edge
-								development tools and procedures. Able to effectively self-manage during independent
-								projects, as well as collaborate as part of a productive team.
+								Passionate about learning new platforms and programming languages. Well-versed in the
+								latest cutting-edge development tools and processes. Able to manage independently as
+								well as collaborate with a productive team.
 							</p>
 						</div>
 					</div>
