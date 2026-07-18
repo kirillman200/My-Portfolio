@@ -28,6 +28,7 @@
     "react-scroll": "^1.9.3"
   },
   "devDependencies": {
+    "@netlify/plugin-lighthouse": "^6.0.4",
     "@tailwindcss/postcss": "^4.3.3",
     "postcss": "^8.5.19",
     "prettier": "^3.9.5",
