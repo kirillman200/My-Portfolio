@@ -1,116 +1,90 @@
-import React from 'react';
-import styled from 'styled-components';
-import { animateScroll as scroll, Link as LinkS } from 'react-scroll';
-// import ThemeToggle from './ThemeToggle';
-import { Link } from 'gatsby';
-const Header = ({ siteTitle, toggle, isOpen }) => {
-	const toggleHome = () => {
-		scroll.scrollToTop();
-	};
+import React from "react"
+import { Link } from "gatsby"
+import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi"
+import { animateScroll as scroll, Link as LinkS } from "react-scroll"
 
-	return (
-		<header className='fixed shadow-sm bg-white dark:bg-darkmode-darker  text-lg w-screen h-20 z-50  '>
-			<NavBar
-				className='flex p-0 px-6 max-w-7xl mx-auto  justify-between
-				 h-20 items-center font-bold relative transition duration-700 '
-				role='navigation'
-			>
-				<div className='site-name-wrap'>
-					<div className=''>
-						<Link onClick={toggleHome} to='/' className='cursor-pointer'>
-							Kiril Mankovskyi
-						</Link>
-					</div>
-				</div>
-				<div className='px-4 cursor-pointer md:hidden' onClick={toggle}>
-					{!isOpen ? (
-						<svg
-							className='cursor-pointer hover:text-white-darker transition duration-300 ease-in-out items-center w-8 h-8'
-							xmlns='http://www.w3.org/2000/svg'
-							fill='none'
-							viewBox='0 0 24 24'
-							stroke='currentColor'
-						>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								strokeWidth={2}
-								d='M4 6h16M4 12h16m-7 6h7'
-							/>
-						</svg>
-					) : (
-						<svg
-							className='cursor-pointer hover:text-white-darker transition duration-300 ease-in-out items-center w-8 h-8'
-							xmlns='http://www.w3.org/2000/svg'
-							fill='none'
-							viewBox='0 0 24 24'
-							stroke='currentColor'
-						>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								strokeWidth={2}
-								d='M6 18L18 6M6 6l12 12'
-							/>
-						</svg>
-					)}
-				</div>
-
-				<div className='pr-8 md:flex justify-between hidden'>
-					{/* <div className='mx-auto my-auto'>
-						<ThemeToggle />
-					</div> */}
-					<Link to='/' onClick={toggleHome} className='links-item'>
-						{' '}
-						Home{' '}
-					</Link>
-					<NavLinks
-						className='links-item'
-						to='about'
-						smooth={true}
-						duration={500}
-						spy={true}
-						exact='true'
-						offset={-81}
-					>
-						{' '}
-						About{' '}
-					</NavLinks>
-					<NavLinks
-						className='links-item'
-						to='projects'
-						smooth={true}
-						duration={500}
-						spy={true}
-						exact='true'
-						offset={-75}
-					>
-						{' '}
-						Projects{' '}
-					</NavLinks>
-					<NavLinks
-						className='links-item'
-						to='contact'
-						smooth={true}
-						duration={500}
-						spy={true}
-						exact='true'
-						offset={-75}
-					>
-						{' '}
-						Contact{' '}
-					</NavLinks>
-				</div>
-			</NavBar>
-		</header>
-	);
-};
-
-export const NavBar = styled.nav``;
-export const NavLinks = styled(LinkS)`
-  &.active{
-	  border-bottom: 3px solid #FFCDCD
+const Header = ({ toggle, isOpen }) => {
+  const toggleHome = () => {
+    scroll.scrollToTop()
   }
-`;
 
-export default Header;
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+      <nav
+        className="surface-card mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full px-4 md:px-6"
+        aria-label="Primary navigation"
+      >
+        <Link
+          onClick={toggleHome}
+          to="/"
+          className="flex items-center gap-3 font-display font-bold tracking-tight"
+        >
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink text-sm text-paper">
+            KM
+          </span>
+          <span className="hidden sm:inline">Kiril Mankovskyi</span>
+        </Link>
+        <button
+          type="button"
+          className="flex h-11 w-11 items-center justify-center rounded-full md:hidden"
+          onClick={toggle}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
+          aria-label={isOpen ? "Close navigation" : "Open navigation"}
+        >
+          {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+        </button>
+
+        <div className="hidden items-center gap-1 md:flex">
+          <Link to="/" onClick={toggleHome} className="links-item">
+            Home
+          </Link>
+          <LinkS
+            className="links-item"
+            to="about"
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact={true}
+            offset={-81}
+          >
+            {" "}
+            About{" "}
+          </LinkS>
+          <LinkS
+            className="links-item"
+            to="projects"
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact={true}
+            offset={-75}
+          >
+            {" "}
+            Projects{" "}
+          </LinkS>
+          <LinkS
+            className="links-item"
+            to="contact"
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact={true}
+            offset={-75}
+          >
+            {" "}
+            Contact{" "}
+          </LinkS>
+          <a
+            className="common-btn ml-2 min-h-11! px-4!"
+            href="mailto:kmankovskyi@gmail.com"
+          >
+            Let's talk <FiArrowUpRight />
+          </a>
+        </div>
+      </nav>
+    </header>
+  )
+}
+
+export default Header

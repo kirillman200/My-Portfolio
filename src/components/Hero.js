@@ -1,45 +1,95 @@
-import React from 'react';
-import { Link as LinkS } from 'react-scroll';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import React from "react"
+import { Link as LinkS } from "react-scroll"
+import { GatsbyImage } from "gatsby-plugin-image"
+import { FiArrowDown, FiArrowUpRight } from "react-icons/fi"
 
-const Hero = ({ Title, SubTitle, ScrollTo, Image, ProjectImage, FallbackAltForImg }) => {
-	return (
-		<section id='hero' className='px-10 md:py-32 py-32 pb-6 mx-auto max-w-7xl'>
-			<div className='md:flex grid justify-around '>
-				<div className=' my-auto max-w-lg text-center '>
-					<h1 className=' lg:text-7xl md:text-5xl text-5xl'> {Title}</h1>
-					<h2 className='lg:text-5xl md:text-4xl text-3xl italic mt-5'>{SubTitle}</h2>
-				</div>
-				<div className='max-w-lg '>
-					{Image ? (
-						<GatsbyImage image={Image} alt='Guy with computers' />
-					) : (
-						<div>
-							<img className='rounded-lg' src={ProjectImage} alt={FallbackAltForImg} />
-						</div>
-					)}
-				</div>
-			</div>
-			<div className='mt-10 flex justify-center justify-items-center '>
-				<LinkS to={ScrollTo} smooth={true} duration={500} spy={true} exact='true' offset={-80}>
-					<svg
-						className='cursor-pointer hover:text-white-darker transition-all duration-200 ease-in animate-bounce items-center w-8 h-8'
-						xmlns='http://www.w3.org/2000/svg'
-						fill='none'
-						viewBox='2 2 20 20'
-						stroke='currentColor'
-					>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth={2}
-							d='M19 14l-7 7m0 0l-7-7m7 7V3'
-						/>
-					</svg>
-				</LinkS>
-			</div>
-		</section>
-	);
-};
+const Hero = ({
+  Title,
+  SubTitle,
+  ScrollTo,
+  Image,
+  ProjectImage,
+  FallbackAltForImg,
+}) => {
+  return (
+    <section
+      id="hero"
+      className="mx-auto max-w-7xl px-6 pb-20 pt-36 md:px-10 md:pb-28 md:pt-44"
+    >
+      <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr]">
+        <div className="max-w-3xl">
+          <div className="eyebrow-pill mb-7">
+            {ProjectImage
+              ? "Selected project"
+              : "Available for new opportunities"}
+          </div>
+          <h1 className="font-display text-[clamp(3.6rem,9vw,7.8rem)] font-semibold leading-[0.86] tracking-[-0.075em]">
+            {Title}
+          </h1>
+          <h2 className="gradient-text mt-6 font-display text-[clamp(2rem,5vw,4.6rem)] font-semibold leading-none tracking-[-0.06em]">
+            {SubTitle || "Built with intention."}
+          </h2>
+          {!ProjectImage && (
+            <>
+              <p className="section-copy mt-8 max-w-2xl">
+                I create thoughtful digital experiences where clean engineering
+                meets expressive design.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <LinkS
+                  className="common-btn"
+                  to="projects"
+                  smooth
+                  duration={500}
+                  offset={-70}
+                >
+                  Explore my work <FiArrowDown />
+                </LinkS>
+                <a
+                  className="common-btn secondary"
+                  href="mailto:kmankovskyi@gmail.com"
+                >
+                  Start a conversation <FiArrowUpRight />
+                </a>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="relative mx-auto w-full max-w-lg">
+          <div className="absolute -inset-5 -z-10 rotate-3 rounded-[2.5rem] bg-gradient-to-br from-coral/35 to-violet/35 blur-sm" />
+          <div className="surface-card overflow-hidden rounded-[2rem] p-3">
+            {Image ? (
+              <GatsbyImage
+                className="rounded-[1.35rem]"
+                image={Image}
+                alt="Developer working at a computer"
+              />
+            ) : (
+              <img
+                className="aspect-[4/3] w-full rounded-[1.35rem] object-cover"
+                src={ProjectImage}
+                alt={FallbackAltForImg}
+              />
+            )}
+          </div>
+          <div className="surface-card absolute -bottom-5 -left-5 rounded-2xl px-5 py-3 font-display text-sm font-semibold">
+            Design · Build · Iterate
+          </div>
+        </div>
+      </div>
+      {ProjectImage && (
+        <LinkS
+          className="mx-auto mt-14 flex w-max cursor-pointer items-center gap-2 text-sm font-bold"
+          to={ScrollTo}
+          smooth
+          duration={500}
+          offset={-80}
+        >
+          Project details <FiArrowDown />
+        </LinkS>
+      )}
+    </section>
+  )
+}
 
-export default Hero;
+export default Hero
