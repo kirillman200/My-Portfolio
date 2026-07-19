@@ -6,7 +6,7 @@ import { toSafeExternalUrl } from "../utils/safeUrl"
 const pageQuery = graphql`
   {
     cms {
-      projects(first: 2, stage: PUBLISHED) {
+      projects(stage: PUBLISHED) {
         title
         slug
         description {
