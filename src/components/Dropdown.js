@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "gatsby"
-import { Link as LinkS } from "react-scroll"
 
 // import ThemeToggle from './ThemeToggle';
 
@@ -20,42 +19,15 @@ const Dropdown = ({ isOpen, toggle }) => {
         {" "}
         Home{" "}
       </Link>
-      <LinkS
-        className="links-item justify-center"
-        to="about"
-        smooth={true}
-        duration={500}
-        spy={true}
-        exact={true}
-        offset={-320}
-      >
-        {" "}
-        About{" "}
-      </LinkS>
-      <LinkS
-        className="links-item justify-center"
-        to="projects"
-        smooth={true}
-        duration={500}
-        spy={true}
-        exact={true}
-        offset={-320}
-      >
-        {" "}
-        Projects{" "}
-      </LinkS>
-      <LinkS
-        className="links-item justify-center"
-        to="contact"
-        smooth={true}
-        duration={500}
-        spy={true}
-        exact={true}
-        offset={-81}
-      >
-        {" "}
-        Contact{" "}
-      </LinkS>
+      <Link className="links-item justify-center" to="/#about">
+        About
+      </Link>
+      <Link className="links-item justify-center" to="/#projects">
+        Projects
+      </Link>
+      <Link className="links-item justify-center" to="/#contact">
+        Contact
+      </Link>
       {/* <div className='block links-item mx-auto my-auto'>
 				<ThemeToggle />
 			</div> */}

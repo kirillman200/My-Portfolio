@@ -4,8 +4,9 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Hero from "../components/Hero"
 import { FiGithub, FiExternalLink } from "react-icons/fi"
+import { toSafeExternalUrl } from "../utils/safeUrl"
 
-const fallbackImage = "/og.png"
+const fallbackImage = "/og.jpg"
 
 const ProjectPage = ({ data }) => {
   const project = data?.cms?.project
@@ -33,7 +34,9 @@ const ProjectPage = ({ data }) => {
     project.description?.markdown ||
     project.shortDescription ||
     "More details about this project are coming soon."
-  const hasProjectLinks = project.githubLink || project.liveLink
+  const githubUrl = toSafeExternalUrl(project.githubLink)
+  const liveUrl = toSafeExternalUrl(project.liveLink)
+  const hasProjectLinks = githubUrl || liveUrl
 
   return (
     <Layout>
@@ -64,10 +67,10 @@ const ProjectPage = ({ data }) => {
                     Project links
                   </p>
                   <div className="mt-5 flex gap-3">
-                    {project.githubLink && (
+                    {githubUrl && (
                       <a
                         className="social-links-footer"
-                        href={project.githubLink}
+                        href={githubUrl}
                         target="_blank"
                         aria-label={`View ${project.title} on GitHub`}
                         rel="noreferrer"
@@ -75,10 +78,10 @@ const ProjectPage = ({ data }) => {
                         <FiGithub />
                       </a>
                     )}
-                    {project.liveLink && (
+                    {liveUrl && (
                       <a
                         className="social-links-footer"
-                        href={project.liveLink}
+                        href={liveUrl}
                         target="_blank"
                         aria-label={`Visit the live ${project.title} project`}
                         rel="noreferrer"

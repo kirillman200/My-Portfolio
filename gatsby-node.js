@@ -1,11 +1,17 @@
-const useLocalCms = !process.env.GATSBY_CMS_ACCESS
+const cmsUrl = (
+  process.env.CMS_ACCESS_URL ||
+  process.env.GATSBY_CMS_ACCESS ||
+  ""
+).trim()
+const useLocalCms = !cmsUrl
+const isNetlifyBuild = process.env.NETLIFY === "true"
 
 const previewAsset = {
   altName: "Portfolio preview artwork",
-  fileName: "og.png",
-  height: 909,
-  url: "/og.png",
-  width: 1728,
+  fileName: "og.jpg",
+  height: 630,
+  url: "/og.jpg",
+  width: 1200,
 }
 
 const previewProjects = [
@@ -18,7 +24,7 @@ const previewProjects = [
     description: {
       text: "A local preview project used when the external CMS is not configured.",
       markdown:
-        "This local preview keeps development fully functional without production credentials. Configure GATSBY_CMS_ACCESS to replace it with live project content.",
+        "This local preview keeps development fully functional without production credentials. Configure CMS_ACCESS_URL to replace it with live project content.",
     },
     categories: ["Gatsby", "React", "Tailwind CSS"],
     image: previewAsset,
@@ -115,9 +121,30 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
 }
 
 exports.onPreBootstrap = ({ reporter }) => {
+  if (isNetlifyBuild) {
+    const emailPublicKey =
+      process.env.GATSBY_EMAILJS_PUBLIC_KEY || process.env.GATSBY_USER_ID
+    const missingEmailVariables = [
+      ["GATSBY_SERVICE_ID", process.env.GATSBY_SERVICE_ID],
+      ["GATSBY_TEMPLATE_ID", process.env.GATSBY_TEMPLATE_ID],
+      ["GATSBY_EMAILJS_PUBLIC_KEY", emailPublicKey],
+    ]
+      .filter(([, value]) => !value?.trim())
+      .map(([name]) => name)
+
+    if (missingEmailVariables.length) {
+      reporter.panicOnBuild(
+        `Missing required contact environment variables: ${missingEmailVariables.join(
+          ", ",
+        )}`,
+      )
+      return
+    }
+  }
+
   if (useLocalCms) {
     reporter.info(
-      "GATSBY_CMS_ACCESS is not set; using local project preview data.",
+      "CMS_ACCESS_URL is not set; using local project preview data.",
     )
   }
 }
@@ -168,9 +195,28 @@ exports.createPages = async ({
 
   const projects = result.data?.cms?.projects ?? []
 
+  const seenSlugs = new Set()
+
   projects.forEach(({ id, slug }) => {
+    const normalizedSlug = typeof slug === "string" ? slug.trim() : ""
+
+    if (!id || !normalizedSlug) {
+      reporter.panicOnBuild(
+        "Every published CMS project must have a non-empty id and slug.",
+      )
+      return
+    }
+
+    if (seenSlugs.has(normalizedSlug)) {
+      reporter.panicOnBuild(
+        `Duplicate published CMS project slug: ${normalizedSlug}`,
+      )
+      return
+    }
+
+    seenSlugs.add(normalizedSlug)
     createPage({
-      path: `/projects/${slug}`,
+      path: `/projects/${normalizedSlug}`,
       component: require.resolve("./src/templates/ProjectPage.js"),
       context: { id },
     })

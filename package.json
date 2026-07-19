@@ -10,10 +10,10 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "gatsby": "^5.16.1",
+    "gatsby-adapter-netlify": "^1.4.0",
     "gatsby-plugin-google-tagmanager": "^5.16.0",
     "gatsby-plugin-image": "^3.16.0",
     "gatsby-plugin-manifest": "^5.16.0",
-    "gatsby-plugin-offline": "^6.16.0",
     "gatsby-plugin-postcss": "^6.16.0",
     "gatsby-plugin-sharp": "^5.16.0",
     "gatsby-plugin-sitemap": "^6.16.0",
@@ -28,7 +28,6 @@
     "react-scroll": "^1.9.3"
   },
   "devDependencies": {
-    "@netlify/plugin-lighthouse": "^6.0.4",
     "@tailwindcss/postcss": "^4.3.3",
     "postcss": "^8.5.19",
     "prettier": "^3.9.5",
@@ -45,7 +44,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "check": "gatsby build",
-    "test": "gatsby build"
+    "check": "npm run check:format && npm run build",
+    "check:format": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "test": "npm run check"
   }
 }

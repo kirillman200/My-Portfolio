@@ -45,8 +45,8 @@ export default IndexPage
 export const Head = () => (
   <SEO
     title="Developer & Digital Product Builder"
-    ImageDimensions={{ width: 1728, height: 909 }}
-    image="/og.png"
+    ImageDimensions={{ width: 1200, height: 630 }}
+    image="/og.jpg"
     pathname="/"
   />
 )

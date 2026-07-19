@@ -1,13 +1,8 @@
 import React from "react"
 import { Link } from "gatsby"
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi"
-import { animateScroll as scroll, Link as LinkS } from "react-scroll"
 
 const Header = ({ toggle, isOpen }) => {
-  const toggleHome = () => {
-    scroll.scrollToTop()
-  }
-
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
       <nav
@@ -15,7 +10,6 @@ const Header = ({ toggle, isOpen }) => {
         aria-label="Primary navigation"
       >
         <Link
-          onClick={toggleHome}
           to="/"
           className="flex items-center gap-3 font-display font-bold tracking-tight"
         >
@@ -36,45 +30,18 @@ const Header = ({ toggle, isOpen }) => {
         </button>
 
         <div className="hidden items-center gap-1 md:flex">
-          <Link to="/" onClick={toggleHome} className="links-item">
+          <Link to="/" className="links-item">
             Home
           </Link>
-          <LinkS
-            className="links-item"
-            to="about"
-            smooth={true}
-            duration={500}
-            spy={true}
-            exact={true}
-            offset={-81}
-          >
-            {" "}
-            About{" "}
-          </LinkS>
-          <LinkS
-            className="links-item"
-            to="projects"
-            smooth={true}
-            duration={500}
-            spy={true}
-            exact={true}
-            offset={-75}
-          >
-            {" "}
-            Projects{" "}
-          </LinkS>
-          <LinkS
-            className="links-item"
-            to="contact"
-            smooth={true}
-            duration={500}
-            spy={true}
-            exact={true}
-            offset={-75}
-          >
-            {" "}
-            Contact{" "}
-          </LinkS>
+          <Link className="links-item" to="/#about">
+            About
+          </Link>
+          <Link className="links-item" to="/#projects">
+            Projects
+          </Link>
+          <Link className="links-item" to="/#contact">
+            Contact
+          </Link>
           <a
             className="common-btn ml-2 min-h-11! px-4!"
             href="mailto:kmankovskyi@gmail.com"

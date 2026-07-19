@@ -1,10 +1,35 @@
-const cmsPlugin = process.env.GATSBY_CMS_ACCESS
+const cmsUrl = (
+  process.env.CMS_ACCESS_URL ||
+  process.env.GATSBY_CMS_ACCESS ||
+  ""
+).trim()
+const isNetlifyBuild = process.env.NETLIFY === "true"
+
+if (isNetlifyBuild && !cmsUrl) {
+  throw new Error(
+    "CMS_ACCESS_URL is required for Netlify builds. Refusing to publish local preview content.",
+  )
+}
+
+if (cmsUrl) {
+  const parsedCmsUrl = new URL(cmsUrl)
+
+  if (!["http:", "https:"].includes(parsedCmsUrl.protocol)) {
+    throw new Error("CMS_ACCESS_URL must use http or https.")
+  }
+
+  if (isNetlifyBuild && parsedCmsUrl.protocol !== "https:") {
+    throw new Error("CMS_ACCESS_URL must use https in Netlify builds.")
+  }
+}
+
+const cmsPlugin = cmsUrl
   ? {
       resolve: `gatsby-source-graphql`,
       options: {
         typeName: `GraphCMS`,
         fieldName: `cms`,
-        url: process.env.GATSBY_CMS_ACCESS,
+        url: cmsUrl,
       },
     }
   : null
@@ -17,7 +42,7 @@ module.exports = {
     author: `Kiril Mankovskyi`,
     url: "https://kmankovskyi.com",
     siteUrl: `https://kmankovskyi.com`,
-    image: "/og.png",
+    image: "/og.jpg",
   },
   plugins: [
     {
@@ -52,12 +77,6 @@ module.exports = {
         theme_color: `#101321`,
         display: `minimal-ui`,
         icon: `src/images/favicon.png`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/`, `/projects/*`],
       },
     },
   ],

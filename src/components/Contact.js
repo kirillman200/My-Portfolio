@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import emailjs from "@emailjs/browser"
 import { useForm } from "react-hook-form"
 import { navigate } from "gatsby"
@@ -8,9 +8,11 @@ const service = process.env.GATSBY_SERVICE_ID
 const template = process.env.GATSBY_TEMPLATE_ID
 const publicKey =
   process.env.GATSBY_EMAILJS_PUBLIC_KEY || process.env.GATSBY_USER_ID
+const contactIsConfigured = Boolean(service && template && publicKey)
 
 const Contact = () => {
   const [submitError, setSubmitError] = useState("")
+  const formStartedAt = useRef(Date.now())
   const {
     register,
     handleSubmit,
@@ -18,14 +20,44 @@ const Contact = () => {
     formState: { errors, isSubmitting },
   } = useForm()
 
-  async function sendEmail(_, event) {
+  async function sendEmail(formData, event) {
     setSubmitError("")
 
+    if (formData.website) {
+      reset()
+      await navigate("/success")
+      return
+    }
+
+    if (Date.now() - formStartedAt.current < 1500) {
+      setSubmitError(
+        "Please take a moment to review your message and try again.",
+      )
+      return
+    }
+
+    if (!contactIsConfigured) {
+      setSubmitError(
+        "The contact form is temporarily unavailable. Please email me directly.",
+      )
+      return
+    }
+
+    const form = event?.currentTarget || event?.target
+
+    if (!form) {
+      setSubmitError(
+        "The form could not be submitted. Please email me directly instead.",
+      )
+      return
+    }
+
     try {
-      await emailjs.sendForm(service, template, event.target, {
+      await emailjs.sendForm(service, template, form, {
         publicKey,
       })
       reset()
+      formStartedAt.current = Date.now()
       await navigate("/success")
     } catch (error) {
       console.error("Email submission failed", error)
@@ -70,8 +102,19 @@ const Contact = () => {
           <form
             noValidate
             onSubmit={handleSubmit(sendEmail)}
+            aria-busy={isSubmitting}
             className="m-2 rounded-[2rem] bg-paper p-7 text-ink sm:p-10 lg:p-12"
           >
+            <div className="absolute -left-[10000px]" aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input
+                id="website"
+                type="text"
+                tabIndex="-1"
+                autoComplete="off"
+                {...register("website")}
+              />
+            </div>
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="form-element-wrap">
                 <label className="form-label" htmlFor="name">
@@ -80,10 +123,17 @@ const Contact = () => {
                 <input
                   id="name"
                   type="text"
+                  maxLength={100}
                   className="form-input"
                   placeholder="Jane Smith"
                   aria-invalid={Boolean(errors.name)}
-                  {...register("name", { required: "Please enter your name." })}
+                  {...register("name", {
+                    required: "Please enter your name.",
+                    maxLength: {
+                      value: 100,
+                      message: "Please keep your name under 100 characters.",
+                    },
+                  })}
                 />
                 {errors.name && (
                   <p className="form-error">{errors.name.message}</p>
@@ -96,6 +146,7 @@ const Contact = () => {
                 <input
                   id="email"
                   type="email"
+                  maxLength={254}
                   className="form-input"
                   placeholder="jane@company.com"
                   aria-invalid={Boolean(errors.email)}
@@ -104,6 +155,10 @@ const Contact = () => {
                     pattern: {
                       value: /^\S+@\S+\.\S+$/,
                       message: "Please enter a valid email.",
+                    },
+                    maxLength: {
+                      value: 254,
+                      message: "Please enter a shorter email address.",
                     },
                   })}
                 />
@@ -119,9 +174,10 @@ const Contact = () => {
               <input
                 id="subject"
                 type="text"
+                maxLength={150}
                 className="form-input"
                 placeholder="Website redesign"
-                {...register("subject")}
+                {...register("subject", { maxLength: 150 })}
               />
             </div>
             <div className="form-element-wrap mt-6">
@@ -132,10 +188,15 @@ const Contact = () => {
                 className="form-input"
                 id="message"
                 rows="5"
+                maxLength={5000}
                 placeholder="A few details about your project, goals, and timeline…"
                 aria-invalid={Boolean(errors.message)}
                 {...register("message", {
                   required: "Please add a short message.",
+                  maxLength: {
+                    value: 5000,
+                    message: "Please keep your message under 5,000 characters.",
+                  },
                 })}
               />
               {errors.message && (
@@ -143,7 +204,7 @@ const Contact = () => {
               )}
             </div>
             {submitError && (
-              <p className="form-error mt-5" role="alert">
+              <p className="form-error mt-5" role="alert" aria-live="polite">
                 {submitError}
               </p>
             )}

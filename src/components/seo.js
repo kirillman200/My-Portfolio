@@ -8,18 +8,29 @@ const site = {
   url: "https://kmankovskyi.com",
 }
 
+function toAbsoluteHttpUrl(value, fallback) {
+  try {
+    const url = new URL(value, site.url)
+    if (["http:", "https:"].includes(url.protocol)) return url.href
+  } catch {
+    // Fall through to the known-safe site-relative fallback.
+  }
+
+  return new URL(fallback, site.url).href
+}
+
 function SEO({
   description = site.description,
   ImageDimensions: dimensions,
-  image = "/og.png",
+  image = "/og.jpg",
   keywords = ["Kiril Mankovskyi", "Portfolio", "Web Developer", "Developer"],
   lang = "en",
   meta = [],
   pathname = "/",
   title,
 }) {
-  const canonical = new URL(pathname, site.url).href
-  const metaImage = new URL(image, site.url).href
+  const canonical = toAbsoluteHttpUrl(pathname, "/")
+  const metaImage = toAbsoluteHttpUrl(image, "/og.jpg")
   const pageTitle = `${title} | ${site.title}`
 
   return (

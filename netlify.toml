@@ -3,10 +3,6 @@
   publish = "public"
 
 [build.environment]
+  GATSBY_TELEMETRY_DISABLED = "1"
   NODE_VERSION = "24"
   NPM_FLAGS = "--legacy-peer-deps"
-
-# Keep the build plugin version in the repository so legacy UI configuration
-# cannot select Lighthouse 4, which rejects the modern Node runtime.
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"

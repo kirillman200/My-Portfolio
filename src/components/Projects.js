@@ -1,11 +1,12 @@
 import React from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import { FiGithub, FiExternalLink } from "react-icons/fi"
+import { toSafeExternalUrl } from "../utils/safeUrl"
 
 const pageQuery = graphql`
   {
     cms {
-      projects(first: 2) {
+      projects(first: 2, stage: PUBLISHED) {
         title
         slug
         description {
@@ -40,6 +41,24 @@ const pageQuery = graphql`
   }
 `
 
+const ExternalProjectLink = ({ url, label, children }) => {
+  const safeUrl = toSafeExternalUrl(url)
+
+  if (!safeUrl) return null
+
+  return (
+    <a
+      className="social-links-footer"
+      href={safeUrl}
+      target="_blank"
+      aria-label={label}
+      rel="noreferrer"
+    >
+      {children}
+    </a>
+  )
+}
+
 const Projects = () => {
   const {
     cms: { projects },
@@ -68,7 +87,7 @@ const Projects = () => {
             <Link className="block overflow-hidden" to={`/projects/${slug}`}>
               <img
                 className="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-                src={project.image?.url || "/og.png"}
+                src={project.image?.url || "/og.jpg"}
                 alt={
                   project.image?.altName || `${project.title} project preview`
                 }
@@ -96,28 +115,18 @@ const Projects = () => {
                   "Case study details coming soon."}
               </p>
               <div className="mt-7 flex items-center gap-3">
-                {project.githubLink && (
-                  <a
-                    className="social-links-footer"
-                    href={project.githubLink}
-                    target="_blank"
-                    aria-label={`View ${project.title} on GitHub`}
-                    rel="noreferrer"
-                  >
-                    <FiGithub />
-                  </a>
-                )}
-                {project.liveLink && (
-                  <a
-                    className="social-links-footer"
-                    href={project.liveLink}
-                    target="_blank"
-                    aria-label={`Visit the live ${project.title} project`}
-                    rel="noreferrer"
-                  >
-                    <FiExternalLink />
-                  </a>
-                )}
+                <ExternalProjectLink
+                  url={project.githubLink}
+                  label={`View ${project.title} on GitHub`}
+                >
+                  <FiGithub />
+                </ExternalProjectLink>
+                <ExternalProjectLink
+                  url={project.liveLink}
+                  label={`Visit the live ${project.title} project`}
+                >
+                  <FiExternalLink />
+                </ExternalProjectLink>
                 <Link
                   className="ml-auto text-sm font-bold text-violet"
                   to={`/projects/${slug}`}
