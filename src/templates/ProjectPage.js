@@ -5,19 +5,44 @@ import SEO from "../components/seo"
 import Hero from "../components/Hero"
 import { FiGithub, FiExternalLink } from "react-icons/fi"
 
-const ProjectPage = ({
-  data: {
-    cms: { project },
-  },
-}) => (
-  <>
+const fallbackImage = "/og.png"
+
+const ProjectPage = ({ data }) => {
+  const project = data?.cms?.project
+
+  if (!project) {
+    return (
+      <Layout>
+        <section className="mx-auto max-w-3xl px-6 pb-28 pt-40 text-center md:px-10">
+          <p className="section-kicker">Project unavailable</p>
+          <h1 className="section-title mt-5">
+            This case study is not ready yet.
+          </h1>
+          <p className="section-copy mx-auto mt-6">
+            The project may still be publishing. Please check back shortly.
+          </p>
+        </section>
+      </Layout>
+    )
+  }
+
+  const projectImage = project.image?.url || fallbackImage
+  const projectImageAlt =
+    project.image?.altName || `${project.title} project preview`
+  const description =
+    project.description?.markdown ||
+    project.shortDescription ||
+    "More details about this project are coming soon."
+  const hasProjectLinks = project.githubLink || project.liveLink
+
+  return (
     <Layout>
       <Hero
         Title={project.title}
         SubTitle=""
         ScrollTo={project.slug}
-        ProjectImage={project.image.url}
-        FallbackAltForImg={project.image.altName}
+        ProjectImage={projectImage}
+        FallbackAltForImg={projectImageAlt}
       />
       <section
         id={project.slug}
@@ -29,48 +54,73 @@ const ProjectPage = ({
             <div>
               <h2 className="section-title">The project in detail.</h2>
               <div className="section-copy mt-8 whitespace-pre-line">
-                {project.description.markdown}
+                {description}
               </div>
             </div>
             <div className="lg:border-l lg:border-black/10 lg:pl-10 dark:lg:border-white/10">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink/55">
-                Project links
-              </p>
-              <div className="mt-5 flex gap-3">
-                <a
-                  className="social-links-footer"
-                  href={project.githubLink}
-                  target="_blank"
-                  aria-label="GitHub"
-                  rel="noreferrer"
-                >
-                  <FiGithub />
-                </a>
-                <a
-                  className="social-links-footer"
-                  href={project.liveLink}
-                  target="_blank"
-                  aria-label="Live"
-                  rel="noreferrer"
-                >
-                  <FiExternalLink />
-                </a>
-              </div>
+              {hasProjectLinks && (
+                <>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink/55">
+                    Project links
+                  </p>
+                  <div className="mt-5 flex gap-3">
+                    {project.githubLink && (
+                      <a
+                        className="social-links-footer"
+                        href={project.githubLink}
+                        target="_blank"
+                        aria-label={`View ${project.title} on GitHub`}
+                        rel="noreferrer"
+                      >
+                        <FiGithub />
+                      </a>
+                    )}
+                    {project.liveLink && (
+                      <a
+                        className="social-links-footer"
+                        href={project.liveLink}
+                        target="_blank"
+                        aria-label={`Visit the live ${project.title} project`}
+                        rel="noreferrer"
+                      >
+                        <FiExternalLink />
+                      </a>
+                    )}
+                  </div>
+                </>
+              )}
               <p className="mt-9 text-xs font-bold uppercase tracking-[0.16em] text-ink/55">
                 Built with
               </p>
-              <img
-                className="mt-5 w-full rounded-2xl border border-black/10 dark:border-white/10"
-                src={project.frameworkImage.url}
-                alt={project.frameworkImage.altName}
-              />
+              {project.categories?.length > 0 && (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.categories.map(category => (
+                    <span
+                      key={category}
+                      className="rounded-full bg-violet/10 px-3 py-1 text-xs font-bold text-violet"
+                    >
+                      {category}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {project.frameworkImage?.url && (
+                <img
+                  className="mt-5 w-full rounded-2xl border border-black/10 dark:border-white/10"
+                  src={project.frameworkImage.url}
+                  alt={
+                    project.frameworkImage.altName ||
+                    `${project.title} technology stack`
+                  }
+                />
+              )}
             </div>
           </div>
         </div>
       </section>
     </Layout>
-  </>
-)
+  )
+}
 
 export const pageQuery = graphql`
   query ProjectPageQuery($id: ID!) {
@@ -82,6 +132,7 @@ export const pageQuery = graphql`
         description {
           markdown
         }
+        categories
         frameworkImage {
           altName
           fileName
@@ -113,16 +164,18 @@ export const pageQuery = graphql`
 
 export default ProjectPage
 
-export const Head = ({
-  data: {
-    cms: { project },
-  },
-}) => (
-  <SEO
-    title={project.title}
-    description={project.shortDescription}
-    ImageDimensions={project.image}
-    image={project.image.url}
-    pathname={`/projects/${project.slug}`}
-  />
-)
+export const Head = ({ data }) => {
+  const project = data?.cms?.project
+
+  return (
+    <SEO
+      title={project?.title || "Project"}
+      description={
+        project?.shortDescription || "A selected project by Kiril Mankovskyi."
+      }
+      ImageDimensions={project?.image}
+      image={project?.image?.url || fallbackImage}
+      pathname={project?.slug ? `/projects/${project.slug}` : "/projects"}
+    />
+  )
+}

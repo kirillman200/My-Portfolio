@@ -60,7 +60,7 @@ const Projects = () => {
         </p>
       </div>
       <div className="mt-14 grid gap-7 md:grid-cols-2">
-        {projects.map(({ slug, ...project }) => (
+        {(projects ?? []).map(({ slug, ...project }) => (
           <article
             key={slug}
             className="surface-card group overflow-hidden rounded-[2rem] transition duration-300 hover:-translate-y-2"
@@ -68,8 +68,10 @@ const Projects = () => {
             <Link className="block overflow-hidden" to={`/projects/${slug}`}>
               <img
                 className="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-                src={project.image.url}
-                alt={project.image.altName}
+                src={project.image?.url || "/og.png"}
+                alt={
+                  project.image?.altName || `${project.title} project preview`
+                }
               />
             </Link>
             <div className="p-7 sm:p-8">
@@ -89,27 +91,33 @@ const Projects = () => {
                 </h3>
               </Link>
               <p className="section-copy mt-4 text-base!">
-                {project.shortDescription}
+                {project.shortDescription ||
+                  project.description?.text ||
+                  "Case study details coming soon."}
               </p>
               <div className="mt-7 flex items-center gap-3">
-                <a
-                  className="social-links-footer"
-                  href={project.githubLink}
-                  target="_blank"
-                  aria-label="GitHub"
-                  rel="noreferrer"
-                >
-                  <FiGithub />
-                </a>
-                <a
-                  className="social-links-footer"
-                  href={project.liveLink}
-                  target="_blank"
-                  aria-label="Live"
-                  rel="noreferrer"
-                >
-                  <FiExternalLink />
-                </a>
+                {project.githubLink && (
+                  <a
+                    className="social-links-footer"
+                    href={project.githubLink}
+                    target="_blank"
+                    aria-label={`View ${project.title} on GitHub`}
+                    rel="noreferrer"
+                  >
+                    <FiGithub />
+                  </a>
+                )}
+                {project.liveLink && (
+                  <a
+                    className="social-links-footer"
+                    href={project.liveLink}
+                    target="_blank"
+                    aria-label={`Visit the live ${project.title} project`}
+                    rel="noreferrer"
+                  >
+                    <FiExternalLink />
+                  </a>
+                )}
                 <Link
                   className="ml-auto text-sm font-bold text-violet"
                   to={`/projects/${slug}`}
